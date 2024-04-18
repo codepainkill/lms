@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h1>Library Management System</h1>
+    <p>Number of records: {{ records|length }}</p>
+
+    <form method="get">
+        <div class="form-group">
+            <label for="search_query">Search:</label>
+            <input type="text" name="q" id="search_query" class="form-control" value="{{ request.GET.q }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.title }}</td>
+                <td>{{ record.author }}</td>
+                <td>{{ record.genre }}</td>
+                <td>{{ record.availability }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h1>Please Log in</h1>
+{% endif %}
+{% endblock %}
